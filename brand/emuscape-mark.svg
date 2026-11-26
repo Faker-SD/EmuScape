@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12 -38 372 372"><defs><linearGradient id="edgea" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fa3"/><stop offset="1" stop-color="#c02bd8"/></linearGradient>
+  <linearGradient id="facea" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d2030"/><stop offset="1" stop-color="#11131c"/></linearGradient>
+  <linearGradient id="sidea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c02bd8"/><stop offset="1" stop-color="#ff4fa3"/></linearGradient>
+  <linearGradient id="topa" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff4fa3"/><stop offset="1" stop-color="#c02bd8"/></linearGradient><linearGradient id="edgeb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#36d6ff"/><stop offset="1" stop-color="#3a6bff"/></linearGradient>
+  <linearGradient id="faceb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d2030"/><stop offset="1" stop-color="#11131c"/></linearGradient>
+  <linearGradient id="sideb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a6bff"/><stop offset="1" stop-color="#36d6ff"/></linearGradient>
+  <linearGradient id="topb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#36d6ff"/><stop offset="1" stop-color="#3a6bff"/></linearGradient><linearGradient id="edgec" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb03a"/><stop offset="1" stop-color="#ff3f7a"/></linearGradient>
+  <linearGradient id="facec" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d2030"/><stop offset="1" stop-color="#11131c"/></linearGradient>
+  <linearGradient id="sidec" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff3f7a"/><stop offset="1" stop-color="#ffb03a"/></linearGradient>
+  <linearGradient id="topc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb03a"/><stop offset="1" stop-color="#ff3f7a"/></linearGradient>
+    <linearGradient id="dp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb03a"/><stop offset=".5" stop-color="#ff4fa3"/><stop offset="1" stop-color="#36d6ff"/></linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g filter="url(#glow)"><g transform="translate(118 48) rotate(-12)">
+    <path d="M147 14 l22 -12.100000000000001 v182.6 q0 8.4 -7 12.6 l-15 7.900000000000001 z" fill="url(#sidea)" opacity="0.95"/>
+    
+    <rect x="0" y="0" width="150" height="205" rx="14" fill="url(#facea)" stroke="url(#edgea)" stroke-width="7"/>
+    <rect x="13" y="13" width="124" height="179" rx="8.4" fill="none" stroke="url(#edgea)" stroke-opacity=".28" stroke-width="2"/>
+  </g><g transform="translate(72 66) rotate(-12)">
+    <path d="M147 14 l22 -12.100000000000001 v182.6 q0 8.4 -7 12.6 l-15 7.900000000000001 z" fill="url(#sideb)" opacity="0.95"/>
+    
+    <rect x="0" y="0" width="150" height="205" rx="14" fill="url(#faceb)" stroke="url(#edgeb)" stroke-width="7"/>
+    <rect x="13" y="13" width="124" height="179" rx="8.4" fill="none" stroke="url(#edgeb)" stroke-opacity=".28" stroke-width="2"/>
+  </g><g transform="translate(22 86) rotate(-12)">
+    <path d="M147 14 l22 -12.100000000000001 v182.6 q0 8.4 -7 12.6 l-15 7.900000000000001 z" fill="url(#sidec)" opacity="0.95"/>
+    
+    <rect x="0" y="0" width="150" height="205" rx="14" fill="url(#facec)" stroke="url(#edgec)" stroke-width="7"/>
+    <rect x="13" y="13" width="124" height="179" rx="8.4" fill="none" stroke="url(#edgec)" stroke-opacity=".28" stroke-width="2"/>
+  </g></g>
+    <g transform="translate(104 186) rotate(-12)"><path d="M-12.58 -37 h25.16 v24.42 h24.42 v25.16 h-24.42 v24.42 h-25.16 v-24.42 h-24.42 v-25.16 h24.42 z" fill="none" stroke="url(#dp)" stroke-width="5.180000000000001" stroke-linejoin="round"/><circle r="3.7" fill="url(#dp)"/></g></svg>

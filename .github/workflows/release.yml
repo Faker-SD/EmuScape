@@ -1,0 +1,61 @@
+# Builds EmuScape for Windows and publishes the release when package.json has a version not released yet:
+# EmuScape-Setup-<v>.exe (the installer) and EmuScape-<v>-code.zip (the code-only update the app installs by itself)
+name: Release
+on:
+  push:
+    paths: ['package.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: release
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Version
+        id: v
+        shell: bash
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          v=$(node -p "require('./package.json').version")
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          if gh release view "v$v" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "v$v is already released"; fi
+      - uses: actions/setup-node@v4
+        if: steps.v.outputs.skip != '1'
+        with: { node-version: 22, cache: npm }
+      - name: Build
+        if: steps.v.outputs.skip != '1'
+        shell: pwsh
+        run: |
+          npm ci
+          npx electron-builder --win dir --x64 --publish never
+      - name: Installer
+        if: steps.v.outputs.skip != '1'
+        shell: pwsh
+        run: |
+          $mk = "${env:ProgramFiles(x86)}\NSIS\makensis.exe"
+          if (!(Test-Path $mk)) { choco install nsis -y --no-progress; $mk = "${env:ProgramFiles(x86)}\NSIS\makensis.exe" }
+          Push-Location build\windows
+          & $mk "-DVERSION=${{ steps.v.outputs.version }}" emuscape.nsi
+          if ($LASTEXITCODE) { throw "makensis failed" }
+          Pop-Location
+          New-Item -ItemType Directory -Force out | Out-Null
+          Move-Item "build\windows\EmuScape-Setup-${{ steps.v.outputs.version }}.exe" out\
+      - name: Code update zip
+        if: steps.v.outputs.skip != '1'
+        shell: pwsh
+        run: |
+          $v = "${{ steps.v.outputs.version }}"
+          npx asar extract dist\win-unpacked\resources\app.asar codezip
+          $el = node -p "require('./node_modules/electron/package.json').version"
+          "{`"version`":`"$v`",`"electron`":`"$el`"}" | Set-Content -NoNewline -Encoding ascii codezip\code.json
+          Compress-Archive -Path codezip\* -DestinationPath "out\EmuScape-$v-code.zip"
+      - name: Publish
+        if: steps.v.outputs.skip != '1'
+        shell: bash
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          v=${{ steps.v.outputs.version }}
+          node scripts/release-notes.js "$v" > notes.md
+          gh release create "v$v" out/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "EmuScape $v" --notes-file notes.md
