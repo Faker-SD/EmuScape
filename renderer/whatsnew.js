@@ -6,6 +6,14 @@
 //   sections: [{ h, items: [[headline, more]] }] }; newest first.
 window.BS_WHATSNEW = [
   {
+    version: '2.0.24', date: '2026-11-26', title: 'When the controller still won\'t answer',
+    highlights: [
+      "Controller icon by the clock: if the controller still doesn't answer a few seconds after the restart, click it again to restart EmuScape",
+      "The restart writes what the controller reading sees into the log, to find out why a controller stops after a game"
+    ],
+    sections: []
+  },
+  {
     version: '2.0.23', date: '2026-11-26', title: 'Controller restart by the clock',
     highlights: [
       "Click the controller icon by the clock to restart the controller (after a game or emulator that crashed left it not answering)",

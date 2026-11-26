@@ -887,8 +887,10 @@ function watchShelf() {
 }
 // (own build) the controller icon by the clock: the shelf's controller helper started over and the window given the focus
 // (Chromium only reads controllers for the window in front)
+// (own build) the controller icon's second click: EmuScape starts over (the controller reading in the window stuck)
+handle('app:restart', () => { log('Restarting EmuScape (asked from the shelf)'); setTimeout(() => { try { app.relaunch(); } catch {} app.quit(); }, 200); return { ok: true }; });
 handle('pads:reset', () => {
-  const running = launcher.isRunning(); log('Controller: restarted from the shelf' + (running ? ' (a game still counts as running: its helper is left alone)' : ''));
+  const running = launcher.isRunning(); log('Controller: restarted from the shelf' + (running ? ' (a game still counts as running: its helper is left alone)' : '') + ' · helper ' + (padwatch.isRunning() ? 'running' : 'off') + ', direct reading ' + (shelfPadFallback ? 'on' : 'off') + ', window ' + (alive() && win.isFocused() ? 'focused' : 'not focused'));
   if (!running && process.platform === 'win32') { try { padwatch.stop(); } catch {} setTimeout(() => { try { watchShelf(); if (shelfPadFallback) padwatch.setShelfPad(true); } catch (e) { log('Controller restart', e.message); } }, 400); }
   try { if (alive()) { if (win.isMinimized()) win.restore(); win.focus(); win.webContents.focus(); } } catch {}
   return { ok: true, running };

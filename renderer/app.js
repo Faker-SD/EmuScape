@@ -4251,11 +4251,23 @@ function padName_(id){return padSeeName(id)||padInfo(id).name}
 window.BS_padName=()=>padName?padName_(padName):"";window.BS_padStyleOf=padStyleOf;
 // (own build) the controller icon by the clock: a click starts the controller reading over (a game that crashed or an
 // emulator that restarted itself could leave the shelf deaf to the pad until EmuScape was closed)
-async function padReset(){play_("tick");try{if(window.BS_padFbOff)BS_padFbOff()}catch{}
+let padResetAt=0;
+function padDiag(){let L=[];try{L=[...(navigator.getGamepads()||[])].filter(Boolean)}catch{}const now=performance.now();
+  return `focus=${document.hasFocus()} visible=${document.visibilityState} mode=${mode} pads=[${L.map(g=>`${g.index}:${g.id.slice(0,60)} ${g.connected?"on":"off"} ${Math.round(now-g.timestamp)}ms`).join("; ")||"none"}] seen=${padSeen||"-"}`}
+async function padReset(){play_("tick");
+  if(padResetAt&&performance.now()-padResetAt<20000&&api.appRestart){padResetAt=0;toast("Restarting EmuScape…");try{api.log("controller: restart EmuScape from the controller icon · "+padDiag())}catch{}setTimeout(()=>api.appRestart().catch(()=>{}),500);return}
+  try{api.log("controller: restart asked · before "+padDiag())}catch{}
+  try{if(window.BS_padFbOff)BS_padFbOff()}catch{}
   for(const k in prevBtn)delete prevBtn[k];held={dir:0,t0:0,tl:0};padSeen=null;renderHints.sig="";
   let r=null;try{r=api.padsReset?await api.padsReset():null}catch{}
   try{window.focus()}catch{}
-  toast(r&&r.running?"Controller restarted · a game still counts as open: close it if the controller still doesn't answer":"Controller restarted · press any button")}
+  if(r&&r.running){toast("Controller restarted · a game still counts as open: close it if the controller still doesn't answer");return}
+  toast("Controller restarted · press any button");
+  // (own build) still nothing a few seconds on: the controller reading inside the window itself is stuck, which only a
+  // fresh start of EmuScape clears; a second click on the icon does that
+  setTimeout(async()=>{let pres=[];try{pres=api.padsPresent?await api.padsPresent():[]}catch{}const gp=activePad();
+    try{api.log("controller: 4 s after the restart · "+padDiag()+" · plugged in: "+((pres||[]).map(x=>x.name||x.product||JSON.stringify(x)).join(", ")||"none"))}catch{}
+    if(!gp||!padSeen){padResetAt=performance.now();toast("Still no controller · click the controller icon again to restart EmuScape")}},4000)}
 addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("#padStat");if(!b||ANDROID)return;e.preventDefault();e.stopPropagation();padReset()},true);
 function padStatus(gp){if(!document.hasFocus())return; // unfocused, Chromium hides pads: not a real disconnect
   const id=gp?gp.id:"";if(id===padSeen)return;const was=padSeen;padSeen=id;renderHints.sig="";renderHints();const el=$("padStat");if(el){el.classList.toggle("on",!!gp);el.title=(gp?padName_(id):"No controller")+" · click to restart the controller"}

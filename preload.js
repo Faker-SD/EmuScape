@@ -229,7 +229,8 @@ contextBridge.exposeInMainWorld('boxshelf', {
   gameStatus: (id, status) => call('game:status', { id, status }), // (beta.12) Details → Your play → Status
   onWiimote: fn => ipcRenderer.on('wiimote', (e, d) => fn(d)), // the Wii remote: { x, y, seen, b, hold } / { on }
   wmRumble: ms => ipcRenderer.send('wm:rumble', ms),
-  padsReset: () => call('pads:reset'), // (own build) click on the controller icon
+  padsReset: () => call('pads:reset'),
+  appRestart: () => call('app:restart'), // (own build) the controller icon's second click // (own build) click on the controller icon
   padsPresent: () => call('pads:present'), // the real controllers plugged in: [{ vendor, product, style }]
   onExited: fn => ipcRenderer.on('run:exited', (e, info) => fn(info)),
   onRunReady: fn => ipcRenderer.on('run:ready', () => fn()),
