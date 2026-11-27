@@ -465,7 +465,7 @@ function mount(s){
     if(mode==="details"){if(i===sel)dMenuOpen();return}
     if(i!==sel)go(i);if(i!==sel)return;if(flipped){flipped=false;applyRotation()}
     {const g=curGame();if(g&&(g.kind==="random"||g.kind==="emulator")&&typeof BsMenu!=="undefined"){BsMenu.open(e.clientX,e.clientY,[{label:g.kind==="random"?"Remove Surprise me from every shelf":"Remove the emulator case from every shelf",danger:true,fn:()=>tileOff(g)}]);return}} /* (own build) */
-    openDetails();if(mode==="details")setTimeout(()=>{if(mode==="details"&&sel===i)dMenuOpen()},80)});
+    openDetails()}); /* (own build) opens without the options: ··· shows them */
   // keep DOM order = shelf order so stacking stays predictable
   const next=slots.slice(i+1).find(o=>o.el);track.insertBefore(slot,next?next.el:null);
   Object.assign(s,{glareFar:false,glareSide:0,el:slot,box:slot.firstElementChild,img:slot.querySelector(".f-front img"),glare:slot.querySelector(".glare"),back:slot.querySelector(".f-back"),drawn:false,backDrawn:false,fresh:true});
@@ -1209,7 +1209,7 @@ function dInfoMore(g,s){if(!INFO_ASKED||ANDROID||!g||g.kind!=="rom"||!api.moreIn
 function dShotsAdd(g){const sh=(g.info&&g.info.shots)||[],ds=$("dShots"),n0=ds.children.length;if(sh.length<=n0)return;
   for(let k=n0;k<sh.length;k++){const d=document.createElement("button");d.type="button";d.className="d-shot"+(k===0?" on":"");const im=document.createElement("img");im.loading="lazy";im.decoding="async";im.alt="";im.src=sh[k];d.append(im);d.addEventListener("click",()=>{if(mode==="details")openShotView(k);else showShot(k)});ds.append(d)}
   ds.hidden=false;$("dCover").closest(".d-hero").classList.add("shot");if(!n0)heroBgSoon(sh[0],g);$("dNoMedia").hidden=true;$("dTabMedia").classList.add("has");{const h=$("dvShotsH");if(h)h.hidden=false}{const q=$("dvIgdb");if(q&&sh.length>=6)q.hidden=true}}
-function openDetails(){if(mode!=="browse"||!curGame()||emptyShelf())return;uiCrumb("Details: "+curGame().title);
+function openDetails(){if(mode!=="browse"||!curGame()||emptyShelf())return;try{dMenuClose(true)}catch{} /* (own build) Details opens with its options folded away: ··· shows them */uiCrumb("Details: "+curGame().title);
   // (beta.7) the shelf's own preview already playing for this game carries straight on behind Details (no restart)
   {const g=curGame(),k=String(g.id!=null?g.id:g.title);if(PV&&PV.bkey===k&&app.classList.contains("pv-on")){const v=$("pvBack");clearTimeout(PV.bt);PV.bkey="";PV.key=k;PV.r={type:"file",url:v.currentSrc||v.src};app.classList.add("pv-det")}}
   PV.openAt=performance.now(); // (beta.9: opening Details looks for the trailer at once; the rest delay is for moving between games in it)

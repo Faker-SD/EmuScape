@@ -8,7 +8,7 @@ Unicode true
 
 !define APP      "EmuScape"
 !ifndef VERSION
-  !define VERSION "2.0.24"
+  !define VERSION "2.0.25"
 !endif
 !define SRC      "..\..\dist\win-unpacked"
 !define UNKEY    "Software\Microsoft\Windows\CurrentVersion\Uninstall\EmuScape"

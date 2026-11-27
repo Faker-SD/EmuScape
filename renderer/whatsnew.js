@@ -6,6 +6,14 @@
 //   sections: [{ h, items: [[headline, more]] }] }; newest first.
 window.BS_WHATSNEW = [
   {
+    version: '2.0.25', date: '2026-11-27', title: 'A tidier Details page',
+    highlights: [
+      "Details opens with its options folded away: press ··· to see them",
+      "Change trailer, Open emulator and Choose manual are no longer in the options"
+    ],
+    sections: []
+  },
+  {
     version: '2.0.24', date: '2026-11-26', title: 'When the controller still won\'t answer',
     highlights: [
       "Controller icon by the clock: if the controller still doesn't answer a few seconds after the restart, click it again to restart EmuScape",

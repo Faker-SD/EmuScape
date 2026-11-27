@@ -337,3 +337,6 @@ html.platform-android #shotView .sv-nav{width:68px;height:68px;margin-top:-34px;
 /* (test.11) the back of a case is drawn only while it's turned (app.js showBack) or spun by hand (.free): a blue case's
    plain back flashed as a long blue box when the browser drew the turning case flat for a frame opening Details */
 #app.dv2 .slot:not(.showback)>.box:not(.free)>.f-back{visibility:hidden}
+
+/* (own build) left out of the ··· options: Change trailer, Open <emulator>, Choose manual */
+#details #dTrailerPick,#details #dEmu,#details #dChooseManual{display:none!important}
