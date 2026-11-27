@@ -1,7 +1,7 @@
 {
   "name": "boxshelf",
   "productName": "EmuScape",
-  "version": "2.0.25",
+  "version": "2.0.26",
   "description": "TV-style launcher for emulators, Steam and media apps",
   "license": "GPL-3.0-only",
   "main": "boot.js",

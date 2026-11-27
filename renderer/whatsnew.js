@@ -6,6 +6,13 @@
 //   sections: [{ h, items: [[headline, more]] }] }; newest first.
 window.BS_WHATSNEW = [
   {
+    version: '2.0.26', date: '2026-11-27', title: 'PC ports on their console\'s shelf',
+    highlights: [
+      "Details → ··· → Program works for console games too: pick a PC port's .exe and the game starts it instead of the emulator, staying on its console's shelf. Use the emulator goes back"
+    ],
+    sections: []
+  },
+  {
     version: '2.0.25', date: '2026-11-27', title: 'A tidier Details page',
     highlights: [
       "Details opens with its options folded away: press ··· to see them",

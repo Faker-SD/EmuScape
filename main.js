@@ -1734,7 +1734,7 @@ handle('game:browseRom', async ({ id }) => {
 });
 // (own build) Details → Program: pick the .exe a PC game starts (or clear it to start it the usual way again)
 handle('game:setExe', async ({ id, clear }) => {
-  id = String(id || ''); if (!/^[a-z0-9]+-[^\\/:*?"<>|]{1,200}$/i.test(id)) throw new Error('Unknown game.');
+  id = String(id || ''); if (!/^[a-z0-9]+-[^\\/:*?"<>|]{1,200}$/i.test(id) && !/^[a-z0-9-]+:[^\u0000-\u001f]{1,300}$/i.test(id)) throw new Error('Unknown game.'); // (own build) a console game too (a PC port of it)
   const games = { ...(cfg.games || {}) }, o = { ...(games[id] || {}) };
   if (clear) delete o.exe;
   else { const g = pcgames.byId(id), cur = o.exe || (g && g.exe) || '';
